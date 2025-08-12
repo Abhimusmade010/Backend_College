@@ -2,11 +2,8 @@ const express = require('express');
 const complaintSchema  = require('../validations/zod');
 const validateWithZod = require('../middleware/middlewares');
 const {submitForm} = require('../controllers/controllers');
-const {dashboard} = require('../controllers/controllers');
-const Router = express.Router();
-
-Router.post("/submit", validateWithZod(complaintSchema), submitForm);
+const userRouter = express.Router();
 
 
-
-module.exports = Router;
+userRouter.post("/submit", validateWithZod(complaintSchema), submitForm);
+module.exports = userRouter;

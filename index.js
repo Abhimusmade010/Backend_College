@@ -11,6 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+// Serve static files from public folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
   secret:process.env.SESSION_SECRET || "mycustomsessionkey",
   resave:false,

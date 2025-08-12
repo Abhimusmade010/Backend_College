@@ -1,5 +1,6 @@
 const validateWithZod = (schema) => {
   return (req, res, next) => {
+    
     if (!schema || typeof schema.safeParse !== 'function') {
       return res.status(500).json({ 
         success: false, 
@@ -7,6 +8,7 @@ const validateWithZod = (schema) => {
       });
     }
     
+
     const result = schema.safeParse(req.body);
     if (!result.success) {
       return res.status(400).json({ 

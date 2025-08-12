@@ -1,6 +1,4 @@
 const express = require("express");
-const dotenv = require("dotenv");
-const rateLimit = require("express-rate-limit");
 const path = require("path");
 const PORT = process.env.PORT || 3000;
 const app = require("./index");
@@ -15,8 +13,13 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Root endpoint
+// Root endpoint - serve the frontend
 app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// API info endpoint
+app.get("/api", (req, res) => {
   res.json({
     success: true,
     message: "Hardware Complaint Management System API",
@@ -26,6 +29,7 @@ app.get("/", (req, res) => {
       health: "/health"
     }
   });
+
 });
 
 app.listen(PORT, () => {

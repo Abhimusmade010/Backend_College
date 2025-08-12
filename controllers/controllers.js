@@ -59,24 +59,26 @@ const dashboard=async (req, res) => {
       <head>
           <title>Admin Dashboard</title>
           <style>
-              body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+              body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); min-height: 100vh; }
               .dashboard-container { max-width: 1200px; margin: 0 auto; }
-              .header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+              .header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0, 123, 255, 0.15); border: 1px solid rgba(0, 123, 255, 0.1); }
               .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
-              .stat-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+              .stat-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 8px 32px rgba(0, 123, 255, 0.15); border: 1px solid rgba(0, 123, 255, 0.1); text-align: center; transition: transform 0.3s ease; }
+              .stat-card:hover { transform: translateY(-4px); }
               .stat-number { font-size: 2.5em; font-weight: bold; color: #007bff; margin-bottom: 10px; }
-              .stat-label { color: #666; font-size: 1.1em; }
-              .logout-btn { background-color: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; }
-              .logout-btn:hover { background-color: #c82333; }
-              .department-stats { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-              .dept-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+              .stat-label { color: #495057; font-size: 1.1em; font-weight: 500; }
+              .logout-btn { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: transform 0.2s ease; }
+              .logout-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(220, 53, 69, 0.3); }
+              .department-stats { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 8px 32px rgba(0, 123, 255, 0.15); border: 1px solid rgba(0, 123, 255, 0.1); }
+              .dept-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #dee2e6; }
               .dept-row:last-child { border-bottom: none; }
           </style>
       </head>
       <body>
           <div class="dashboard-container">
               <div class="header">
-                  <h1>Hardware Complaint Dashboard</h1>
+                  <h1 style="color: #007bff; margin-bottom: 10px;">PICT Hardware Complaint Dashboard</h1>
+                  <p style="color: #6c757d; margin-bottom: 20px;">Pune Institute of Computer Technology</p>
                   <a href="/admin/logout" class="logout-btn">Logout</a>
               </div>
               
