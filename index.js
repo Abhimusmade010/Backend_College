@@ -2,17 +2,27 @@ const express = require("express");
 const dotenv = require("dotenv");
 const session=require("express-session");
 const rateLimit = require("express-rate-limit");
+const cors = require("cors");
 const path = require("path");
 const userRouter = require("./routes/userRoutes");
 const adminRouter = require("./routes/adminRoutes"); // Create this file for admin routes
 
 dotenv.config();
 const app = express();
+
+// CORS configuration for frontend
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['http://localhost:3000', 'http://localhost:3001'] 
+    : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-// Serve static files from public folder
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from frontend build folder
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 app.use(session({
   secret:process.env.SESSION_SECRET || "mycustomsessionkey",

@@ -25,6 +25,7 @@ const getDashboardStats = async () => {
 
     let total = 0;
     let pending = 0;
+    let inProgress = 0;
     let resolved = 0;
     const departmentStats = {};
 
@@ -34,7 +35,7 @@ const getDashboardStats = async () => {
       const dept = row[7] || "Unknown";
 
       if (!departmentStats[dept]) {
-        departmentStats[dept] = { total: 0, pending: 0, resolved: 0 };
+        departmentStats[dept] = { total: 0, pending: 0, inProgress: 0, resolved: 0 };
       }
 
       departmentStats[dept].total++;
@@ -42,6 +43,9 @@ const getDashboardStats = async () => {
       if (status === "pending") {
         pending++;
         departmentStats[dept].pending++;
+      } else if (status === "in-progress" || status === "in progress") {
+        inProgress++;
+        departmentStats[dept].inProgress++;
       } else {
         resolved++;
         departmentStats[dept].resolved++;
@@ -51,6 +55,7 @@ const getDashboardStats = async () => {
     return {
       totalComplaints: total,
       pendingComplaints: pending,
+      inProgressComplaints: inProgress,
       resolvedComplaints: resolved,
       departmentWise: departmentStats
     };

@@ -47,4 +47,61 @@ const sendEmail = async ({ emailId, department, natureOfComplaint, roomNo }) => 
   }
 };
 
-module.exports = { sendEmail };
+const sendStatusUpdateEmail = async ({ emailId, complaintId, department, natureOfComplaint, roomNo, oldStatus, newStatus, technician, updatedAt }) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"Hardware Management System" <${process.env.EMAIL_USER || "abhishekmusmade342@gmail.com"}>`,
+      to: emailId,
+      subject: `Complaint Status Updated - ${newStatus}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 20px;">
+          <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+            <h2 style="color: #007bff; margin: 0 0 20px 0; text-align: center;">Hardware Complaint Update</h2>
+            
+            <p style="color: #333; font-size: 16px; line-height: 1.5;">
+              Dear User,
+            </p>
+            
+            <p style="color: #333; font-size: 16px; line-height: 1.5;">
+              Your complaint status has been updated to <strong style="color: #007bff;">${newStatus}</strong>.
+            </p>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 20px 0;">
+              <p style="margin: 0; color: #666; font-size: 14px;">
+                <strong>Complaint ID:</strong> ${complaintId}<br>
+                <strong>Department:</strong> ${department}<br>
+                <strong>Room:</strong> ${roomNo}<br>
+                <strong>Issue:</strong> ${natureOfComplaint}
+                ${technician ? `<br><strong>Technician:</strong> ${technician}` : ''}
+              </p>
+            </div>
+            
+            <p style="color: #333; font-size: 16px; line-height: 1.5;">
+              Thank you for your patience.
+            </p>
+            
+            <p style="color: #666; font-size: 14px; margin-top: 20px; text-align: center;">
+              This is an automated notification from PICT Hardware Management System.
+            </p>
+          </div>
+        </div>
+      `
+    });
+
+    console.log(`Status update email sent successfully to ${emailId}`);
+    
+  } catch (error) {
+    console.error("Status update email sending failed:", error);
+    throw error;
+  }
+};
+
+module.exports = { sendEmail, sendStatusUpdateEmail };

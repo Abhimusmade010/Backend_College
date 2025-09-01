@@ -1,4 +1,4 @@
-const { dashboard, adminlogin, adminLogout } = require('../controllers/controllers');
+const { dashboard, adminlogin, adminLogout, getAllComplaintsForAdmin, updateComplaintStatusController, complaintsManagementPage } = require('../controllers/controllers');
 
 const express = require('express');
 const adminRouter = express.Router();
@@ -44,6 +44,9 @@ adminRouter.get("/login", (req, res) => {
 });
 
 adminRouter.get("/dashboard", verifyAdmin, dashboard);
+adminRouter.get("/complaints", verifyAdmin, complaintsManagementPage);
+adminRouter.get("/api/complaints", verifyAdmin, getAllComplaintsForAdmin);
+adminRouter.post("/update-status", verifyAdmin, updateComplaintStatusController);
 adminRouter.post("/login", adminlogin);
 adminRouter.get("/logout", adminLogout);
 

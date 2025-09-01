@@ -13,11 +13,6 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Root endpoint - serve the frontend
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 // API info endpoint
 app.get("/api", (req, res) => {
   res.json({
@@ -29,7 +24,16 @@ app.get("/api", (req, res) => {
       health: "/health"
     }
   });
+});
 
+// Root endpoint - serve the frontend
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
+
+// Catch all handler for React routing - must be last
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 app.listen(PORT, () => {
