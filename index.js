@@ -13,7 +13,7 @@ const app = express();
 // CORS configuration for frontend
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['http://localhost:3000', 'http://localhost:3001'] 
+    ? ['https://fronted-college-w9av.vercel.app', 'http://localhost:3001'] 
     : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
   credentials: true
 }));
